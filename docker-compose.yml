@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}eshop-api
+    build:
+      context: .
+      dockerfile: src/EShop.API/Dockerfile
+    networks:
+      - eshop-network
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - eshop-network
+
+networks:
+  eshop-network:
+    driver: bridge
+
+volumes:
+  sqldata:
